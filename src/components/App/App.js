@@ -16,9 +16,12 @@ function App() {
   const allowedPaths = ["/", "/movies", "/saved-movies", "/profile"];
 
   const shouldDisplayHeader = allowedPaths.includes(location.pathname);
+  const shouldDisplayFooter =
+    allowedPaths.includes(location.pathname) &&
+    !["/profile", "/signup", "/signin"].includes(location.pathname);
 
   return (
-    <div className="App">
+    <div lang="ru" className="App">
       {shouldDisplayHeader && (
         <Header
           loggedIn={true}
@@ -38,7 +41,7 @@ function App() {
         <Route exact path="/signin" element={<Login />} />
         <Route exact path="*" element={<PageNotFound />} />
       </Routes>
-      {allowedPaths.includes(location.pathname) && <Footer />}
+      {shouldDisplayFooter && <Footer />}
     </div>
   );
 }

@@ -1,11 +1,14 @@
 import React from "react";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useLocation } from "react-router-dom";
 import "./Header.css";
 import logo from "../../images/logo.svg";
 import Navigation from "../Navigation/Navigation";
 
 function Header({ loggedIn, registrationLink, login, main }) {
-  const headerClass = `header ${loggedIn ? "header_logged-in" : ""}`;
+  const currentLocation = useLocation(); // Получаем текущий путь
+  const headerClass = `header ${loggedIn ? "header_logged-in" : ""} ${
+    loggedIn && currentLocation.pathname === "/" ? "header_home-logged-in" : ""
+  }`;
 
   return (
     <header className={headerClass}>

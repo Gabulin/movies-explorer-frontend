@@ -6,7 +6,7 @@ import searchBlue from "../../../images/searchBlue.svg";
 const SearchForm = () => {
   const [isShortFilm, setIsShortFilm] = useState(false); 
   const [shouldMoveCheckboxInside, setShouldMoveCheckboxInside] = useState(
-    window.innerWidth > 420
+    window.innerWidth > 480
   );
 
   const handleToggleCheckbox = () => {
@@ -15,7 +15,7 @@ const SearchForm = () => {
 
   useEffect(() => {
     const handleResize = () => {
-      setShouldMoveCheckboxInside(window.innerWidth > 420);
+      setShouldMoveCheckboxInside(window.innerWidth > 480);
     };
 
     window.addEventListener("resize", handleResize);

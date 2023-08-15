@@ -1,7 +1,6 @@
 .promo__container {
   position: relative;
   box-sizing: border-box;
-  width: 1280px;
   height: 554px;
   display: flex;
   flex-direction: column;

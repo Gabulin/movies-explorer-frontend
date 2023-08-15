@@ -13,7 +13,7 @@ function Navigation() {
 
   return (
     <div className="navigation">
-      <div
+      <button
         className={`nav-burger ${isOpen ? "nav-burger_open" : ""}`}
         onClick={toggleMenu}
       >
@@ -22,11 +22,11 @@ function Navigation() {
           alt="Menu Icon"
           className="nav-burger__icon"
         />
-      </div>
+      </button>
 
       {isOpen && (
         <div className="nav-overlay">
-          <div
+          <button
             className={`nav-burger nav-burger_close ${
               isOpen ? "nav-burger_close_open" : ""
             }`}
@@ -37,7 +37,7 @@ function Navigation() {
               alt="Close Icon"
               className="nav-burger__icon"
             />
-          </div>
+          </button>
           <nav className="nav-dropdown">
             <div className="nav-links">
               <NavLink to="/" className="nav-dropdown__link">

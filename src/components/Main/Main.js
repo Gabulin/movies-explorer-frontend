@@ -7,7 +7,6 @@ import Portfolio from "./Portfolio/Portfolio";
 
 function Main() {
   return (
-    <section>
     <main>
       <Promo />
       <AboutProject />
@@ -15,7 +14,6 @@ function Main() {
       <AboutMe />
       <Portfolio />
     </main>
-    </section>
   );
 }
 

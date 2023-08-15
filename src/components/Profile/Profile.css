@@ -115,8 +115,9 @@
     margin: 0 0 96px;
   }
 
-  .profile__form {
-    gap: 40px;
+
+  .profile__fieldset {
+    padding-bottom: 210px;
   }
 }
 

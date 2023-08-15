@@ -59,6 +59,7 @@ function Register() {
           </div>
         </div>
       </form>
+      
     </section>
   );
 }
