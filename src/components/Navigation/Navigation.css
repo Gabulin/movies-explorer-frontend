@@ -10,6 +10,11 @@
     z-index: 1000;
     border: none;
     background: none;
+    transition: opacity 0.3s ease;
+  }
+
+  .nav-burger:hover {
+    opacity: 0.7;
   }
   
   .nav-burger_open {
@@ -24,6 +29,11 @@
     top: 20px;
     right: 20px;
     z-index: 1001;
+    transition: transform 0.3s ease;
+  }
+
+  .nav-burger_close:hover {
+    opacity: 0.7;
   }
   
   .nav-burger__icon {
@@ -74,10 +84,12 @@
     color: #000;
     margin-bottom: 28px;
     align-self: center;
+    transition: opacity 0.3s ease;
   }
   
   .nav-dropdown__link:hover {
     text-decoration: underline;
+    opacity: 0.7;
   }
 
   .navigation__account-btn {

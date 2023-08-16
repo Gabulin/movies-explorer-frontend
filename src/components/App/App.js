@@ -21,7 +21,7 @@ function App() {
     !["/profile", "/signup", "/signin"].includes(location.pathname);
 
   return (
-    <div lang="ru" className="App">
+    <div lang="en" className="App">
       {shouldDisplayHeader && (
         <Header
           loggedIn={true}
