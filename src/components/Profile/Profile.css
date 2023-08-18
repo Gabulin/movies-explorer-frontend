@@ -1,0 +1,146 @@
+.profile {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  box-sizing: border-box;
+  padding: 78px 0 70px;
+}
+
+.profile__title {
+  text-align: center;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  margin: 0 0 123px;
+}
+
+.profile__form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  height: 100%;
+}
+
+.profile__fieldset {
+  border: none;
+  background-color: transparent;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  margin: 0;
+  padding: 0;
+}
+
+.profile__input-label {
+  display: flex;
+  justify-content: space-between;
+  width: 410px;
+}
+
+.profile__input-text {
+  font-size: 11px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  margin: 0;
+}
+
+.profile__input {
+  border: none;
+  background-color: transparent;
+  text-align: right;
+  font-size: 11px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  padding: 0;
+  transition: opacity 0.2s ease;
+}
+
+.profile__input:focus {
+  outline: none;
+  opacity: 0.8;
+}
+
+.profile__line {
+  display: block;
+  height: 1px;
+  background-color: #e8e8e8;
+}
+
+.profile__edit {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.profile__btn-edit {
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  transition: opacity 0.2s ease;
+}
+
+.profile__btn-edit:hover {
+  opacity: 0.8;
+}
+
+.profile__btn-signin {
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  color: #ee3465;
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 500;
+  transition: opacity 0.2s ease;
+}
+
+.profile__btn-signin:hover {
+  opacity: 0.8;
+}
+
+@media screen and (max-width: 800px) {
+  .profile {
+    padding: 236px 10px 269px;
+  }
+
+  .profile__title {
+    margin: 0 0 96px;
+  }
+
+
+  .profile__fieldset {
+    padding-bottom: 210px;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .profile {
+    padding: 70px 10px 40px;
+  }
+
+  .profile__title {
+    margin: 0 0 80px;
+  }
+
+  .profile__input-label {
+    display: flex;
+    justify-content: space-between;
+    width: 260px;
+  }
+
+  .profile__btn-edit {
+    letter-spacing: -0.5px;
+  }
+
+  .profile__btn-signin {
+    letter-spacing: -0.5px;
+  }
+}

@@ -1,0 +1,144 @@
+.header {
+  width: 100%;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 18px 70px 14px;
+  background-color: #dddee3;
+  border-bottom: 1px solid black;
+  z-index: 3;
+}
+
+.header.header_home-logged-in {
+  background-color: #DDDEE3;
+}
+
+.header_logged-in {
+  background-color: #FAFAFA;
+  justify-content: space-between;
+  border: none;
+}
+
+.logo-link {
+  height: 38px;
+  transition: opacity 0.3s ease;
+}
+
+.logo-link:hover {
+  opacity: 0.8;
+}
+
+.logo {
+  box-sizing: border-box;
+}
+
+.nav {
+  display: flex;
+  gap: 16px;
+  padding: 0 0 0 62px;
+}
+
+.nav-link {
+  text-decoration: none;
+  font-size: 13px;
+  font-style: normal;
+  line-height: 18px;
+  color: #000;
+  font-weight: 400;
+  transition: opacity 0.3s ease;
+}
+
+.nav-link:hover {
+  opacity: 0.7;
+}
+
+.nav-link_active {
+  font-weight: 500;
+}
+
+.account-button {
+  box-sizing: border-box;
+  text-decoration: none;
+  text-align: center;
+  width: 100px;
+  height: 32px;
+  font-size: 14px;
+  background-image: url(../../images/account-btn.svg);
+  padding: 8px 20px;
+  border-radius: 20px;
+  transition: opacity 0.3s ease;
+  margin-left: auto;
+}
+
+.account-button:hover {
+  opacity: 0.6;
+}
+
+.login-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 30px;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 16px;
+}
+
+.registration-button {
+  text-decoration: none;
+  color: #000;
+  margin: 0;
+  transition: opacity 0.3s ease;
+}
+
+.registration-button:hover {
+  opacity: 0.7;
+}
+
+.login-button {
+  text-decoration: none;
+  color: #fff;
+  border-radius: 3px;
+  background: #3456f3;
+  padding: 8px 20px;
+  transition: opacity 0.3s ease;
+}
+
+.login-button:hover {
+  opacity: 0.8;
+}
+
+@media screen and (max-width: 768px) {
+  .header {
+    padding: 18px 30px;
+  }
+
+  .nav {
+    display: none;
+  }
+
+  .account-button {
+    display: none;
+  }
+
+  .nav-burger {
+    display: block;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .header {
+    padding: 18px 14px;
+  }
+
+  .login-container {
+    gap: 14px;
+    font-size: 10px;
+  }
+
+  .login-button {
+    padding: 5px 12px;
+  }
+}
