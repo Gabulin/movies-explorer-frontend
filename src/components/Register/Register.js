@@ -1,22 +1,90 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import logo from "../../images/logo.svg";
 import "./Register.css";
 
-const defaultValues = {
-  name: "Виталий",
-  email: "pochta@yandex.ru",
-  password: "**********",
-};
+function Register({ handleRegister }) {
+  const navigate = useNavigate();
+  const [userName, setUserName] = useState("");
+  const [userEmail, setUserEmail] = useState("");
+  const [userPassword, setUserPassword] = useState("");
+  const [errors, setErrors] = useState({
+    name: "",
+    email: "",
+    password: "",
+  });
 
-function Register() {
-  const [formData, setFormData] = useState(defaultValues);
+  const validateEmail = (email) => {
+    const emailRegex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
+    if (!email) {
+      setErrors((prevErrors) => ({ ...prevErrors, email: "Поле не должно быть пустым" }));
+    } else if (!emailRegex.test(email)) {
+      setErrors((prevErrors) => ({ ...prevErrors, email: "Некорректный email" }));
+    } else {
+      setErrors((prevErrors) => ({ ...prevErrors, email: "" }));
+    }
+  };
+
+  const validateName = (name) => {
+    if (!name) {
+      setErrors((prevErrors) => ({ ...prevErrors, name: "Поле не должно быть пустым" }));
+    } else if (name.length < 2 || name.length > 30) {
+      setErrors((prevErrors) => ({ ...prevErrors, name: "Имя должно быть от 2 до 30 символов" }));
+    } else {
+      setErrors((prevErrors) => ({ ...prevErrors, name: "" }));
+    }
+  };
+
+  const validatePassword = (password) => {
+    if (!password) {
+      setErrors((prevErrors) => ({ ...prevErrors, password: "Поле не должно быть пустым" }));
+    } else if (password.length < 6 || password.length > 30) {
+      setErrors((prevErrors) => ({ ...prevErrors, password: "Пароль должен быть от 6 до 30 символов" }));
+    } else {
+      setErrors((prevErrors) => ({ ...prevErrors, password: "" }));
+    }
+  };
+
+  const isFormValid = () => {
+    return (
+      userName.trim() !== "" &&
+      userEmail.trim() !== "" &&
+      userPassword.trim() !== "" &&
+      Object.values(errors).every((error) => error === "")
+    );
+  };
 
   const handleChange = (event) => {
     const { name, value } = event.target;
-    setFormData((prevData) => ({ ...prevData, [name]: value }));
+    
+    if (name === "email") {
+      setUserEmail(value);
+      validateEmail(value);
+    } else if (name === "name") {
+      setUserName(value);
+      validateName(value);
+    } else if (name === "password") {
+      setUserPassword(value);
+      validatePassword(value);
+    }
   };
 
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+
+    if (isFormValid()) {
+      try {
+        await handleRegister({
+          name: userName,
+          email: userEmail,
+          password: userPassword,
+        });
+      } catch (error) {
+        console.error("Ошибка:", error);
+      }
+    }
+  };
+  
   const renderInput = (
     type,
     name,
@@ -33,7 +101,7 @@ function Register() {
         type={type}
         name={name}
         placeholder={placeholder}
-        value={formData[name]}
+        value={name === "name" ? userName : name === "email" ? userEmail : userPassword}
         minLength={minLength}
         maxLength={maxLength}
         required={required}
@@ -52,8 +120,8 @@ function Register() {
         <h1 className="register__title">Добро пожаловать!</h1>
         <form className="register__form">
           <fieldset className="register__fieldset">
-            {renderInput("text", "name", "Имя", 2, 30, true, "")}
-            {renderInput("email", "email", "E-mail", 0, 100, true, "")}
+            {renderInput("text", "name", "Имя", 2, 30, true, errors.name)}
+            {renderInput("email", "email", "E-mail", 0, 100, true, errors.email)}
             {renderInput(
               "password",
               "password",
@@ -61,13 +129,18 @@ function Register() {
               6,
               30,
               true,
-              "Что-то пошло не так..."
+              errors.password
             )}
           </fieldset>
         </form>
       </div>
       <div className="register__edit">
-        <button className="register__btn-edit" type="submit">
+        <button
+          className={`register__btn-edit ${isFormValid() ? "" : "register__btn-edit_disabled"}`}
+          type="submit"
+          disabled={!isFormValid()}
+          onClick={handleSubmit} // Вызываем handleSubmit при нажатии кнопки
+        >
           Зарегистрироваться
         </button>
         <div className="register__question">
