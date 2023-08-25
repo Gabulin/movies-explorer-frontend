@@ -1,44 +1,53 @@
-import React from "react";
+import React, { useState } from "react";
 import "./SavedMovies.css";
-import SearchForm from "../Movies/SearchForm/SearchForm";
-import MoviesCardList from "../Movies/MoviesCardList/MoviesCardList";
+import SearchForm from "../SearchForm/SearchForm";
+import MoviesCardList from "../MoviesCardList/MoviesCardList";
+import Preloader from "../Preloader/Preloader";
 
-import movieImg1 from "../../images/movies/movie-img_1.jpg";
-import movieImg2 from "../../images/movies//movie-img_2.jpg";
-import movieImg3 from "../../images/movies/movie-img_3.jpg";
+function SavedMovies({ movies, getMovies, onDelete }) {
+  const [load, setIsLoad] = useState(false);
+  const [filtered, setFilterd] = useState(null);
+  const [search, setSearch] = useState({ film: "", isShort: "" });
 
-import Preloader from "../Movies/Preloader/Preloader";
+  React.useEffect(() => {
+    setIsLoad(true);
+    getMovies().finally(() => {
+      setIsLoad(false);
+    })
+  }, []);
 
-function SavedMovies() {
-  const moviesList = [
-    {
-      id: 1,
-      image: movieImg1,
-      nameRU: "33 слова о дизайне",
-      duration: "1ч42м",
-    },
-    {
-      id: 2,
-      image: movieImg2,
-      nameRU: "33 слова о дизайне",
-      duration: "1ч42м",
-    },
-    {
-      id: 3,
-      image: movieImg3,
-      nameRU: "33 слова о дизайне",
-      duration: "1ч42м",
-    },
-  ];
+  React.useEffect(() => {
+    handleSearch(search)
+  }, [movies])
+
+  const handleSearch = (search) => {
+    const found = movies.filter(({ nameRU, nameEN, duration }) => {
+      const searchString = search.film.toLowerCase();
+      console.debug(search)
+      const isShort = search.isShort ? duration <= 40 : true;
+
+      return isShort &&
+        (nameRU.toLowerCase().includes(searchString) || nameEN.toLowerCase().includes(searchString))
+    });
+
+    setFilterd(found);
+  }
 
   return (
-    <main className="saved-movies">
-      <SearchForm />
-      {moviesList.length !== 0 ? (
-        <MoviesCardList moviesList={moviesList} />
-      ) : (
-        <Preloader />
-      )}
+    <main className="movies">
+      <SearchForm
+        setSearch={setSearch}
+        search={search}
+        onSearch={search => {
+          handleSearch(search);
+        }}
+      />
+      <MoviesCardList
+        moviesList={filtered}
+        isSaved={() => true}
+        onDelete={onDelete}
+      />
+      {load ? (<Preloader />) : ("")}
     </main>
   );
 }

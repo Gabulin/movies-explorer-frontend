@@ -1,4 +1,4 @@
-import { MOVIE_URL } from './Сonstants.js';
+import { MOVIE_URL } from './Constants';
 
 export const getMovies = () => {
     return fetch(`${MOVIE_URL}/beatfilm-movies`, {

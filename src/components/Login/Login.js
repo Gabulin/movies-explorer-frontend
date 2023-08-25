@@ -82,6 +82,7 @@ function Login({ handleLogin }) {
                 type="password"
                 name="password"
                 value={userPassword}
+                autoComplete="current-password"
                 onChange={(e) => {
                   setUserPassword(e.target.value);
                   validatePassword(e.target.value);

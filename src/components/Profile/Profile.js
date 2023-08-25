@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import "./Profile.css";
 import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 
@@ -10,6 +9,13 @@ const Profile = ({ handleUserUpdate, handleLogout }) => {
   const [userEmail, setUserEmail] = useState(context.email);
   const [emailError, setEmailError] = useState("");
   const [userNameError, setUserNameError] = useState("");
+
+  React.useEffect(() => {
+    if (context) {
+      setUserEmail(context.email);
+      setUserName(context.name);
+    }
+  }, [context]);
 
   const validateEmail = (email) => {
     const emailRegex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
@@ -38,8 +44,6 @@ const Profile = ({ handleUserUpdate, handleLogout }) => {
       userNameError === ""
     );
   };
-
-  const navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();

@@ -30,44 +30,44 @@ export const loginUser = ({ email, password }) => {
         .then((res) => { return handleResponse(res) })
 };
 
-export const getUserInfo = () => {
+export const getUserInfo = (token) => {
     return fetch(`${BASE_URL}/users/me`, {
         method: 'GET',
-        headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}`, 'Content-Type': 'application/json'} ,
+        headers: HEADERS(token),
     })
         .then((res) => { return handleResponse(res) })
 };
 
-export const updateUserInfo = ({ name, email, password }) => {
+export const updateUserInfo = (token, { name, email, password }) => {
     return fetch(`${BASE_URL}/users/me`, {
         method: 'PATCH',
-        headers: HEADERS,
+        headers: HEADERS(token),
         body: JSON.stringify({ name, email, password })
     })
         .then((res) => { return handleResponse(res) })
 };
 
-export const getUserMovies = () => {
+export const getUserMovies = (token) => {
     return fetch(`${BASE_URL}/movies`, {
         method: 'GET',
-        headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}`, 'Content-Type': 'application/json'} ,
+        headers: HEADERS(token)
     })
         .then((res) => { return handleResponse(res) })
 };
 
-export const createUserMovies = (film) => {
+export const createUserMovies = (token, film) => {
     return fetch(`${BASE_URL}/movies`, {
         method: 'POST',
-        headers: HEADERS,
+        headers: HEADERS(token),
         body: JSON.stringify(film)
     })
         .then((res) => { return handleResponse(res) })
 };
 
-export const deleteUserMovies = (filmID) => {
+export const deleteUserMovies = (token, filmID) => {
     return fetch(`${BASE_URL}/movies/${filmID}`, {
         method: 'DELETE',
-        headers: HEADERS,
+        headers: HEADERS(token),
     })
         .then((res => { return handleResponse(res) }))
 };
