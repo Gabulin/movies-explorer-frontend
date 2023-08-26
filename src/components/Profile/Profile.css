@@ -128,7 +128,26 @@
   transition: opacity 0.2s ease;
 }
 
+.profile__btn-save--disabled {
+  pointer-events: none;
+}
+
 .profile__btn-save:hover {
+  opacity: 0.8;
+}
+
+.profile__btn-cancel {
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  transition: opacity 0.2s ease;
+}
+
+.profile__btn-cancel:hover {
   opacity: 0.8;
 }
 

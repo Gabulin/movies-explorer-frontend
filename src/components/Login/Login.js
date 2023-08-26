@@ -98,7 +98,11 @@ function Login({ handleLogin }) {
         </form>
       </div>
       <div className="register__edit">
-        <button className="register__btn-edit" type="submit" disabled={!isFormValid()} onClick={handleSubmitLogin}>
+        <button 
+          className={`register__btn-edit ${isFormValid() ? "" : "register__btn-edit_disabled"}`}
+          type="submit" 
+          disabled={!isFormValid()} 
+          onClick={handleSubmitLogin}>
           Войти
         </button>
         <div className="register__question">

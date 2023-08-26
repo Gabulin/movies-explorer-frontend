@@ -12,6 +12,7 @@ import Footer from "../Footer/Footer";
 import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 import SavedMovies from "../SavedMovies/SavedMovies";
+import InfoToolTip from "../InfoToolTip/InfoToolTip";
 
 import { getMovies } from "../../utils/MoviesApi"; 
 import {
@@ -27,7 +28,8 @@ import {
 function App() {
   const navigate = useNavigate();
   const location = useLocation();
-
+  const [infoToolTipVisible, setInfoToolTipVisible] = React.useState(false);
+  const [messageText, setMessageText] = React.useState("");
   const [token, setToken] = useState(sessionStorage.getItem('token'));
   const [loggedIn, setLoggedIn] = React.useState(token || false);
   const [userInfo, setUserInfo] = React.useState({
@@ -71,9 +73,21 @@ function App() {
           .then((res) => {
             setToken(res.token)
             setLoggedIn(true);
+            setInfoToolTipVisible(true);
+            setMessageText("Регистрация прошла успешно!");
             navigate("/movies", { replace: true });
           })
+          
       })
+      .catch((err) => {
+        setInfoToolTipVisible(true);
+        setMessageText(`${err}...Попробуйте еще раз...`);
+      })
+      .finally(() => {
+        setTimeout(() => {
+          setInfoToolTipVisible(false);
+        }, 1500);
+      });
   };
 
   const handleLogin = ({ email, password }) => {
@@ -82,8 +96,19 @@ function App() {
         console.debug(token)
         setToken(token);
         setLoggedIn(true);
-        navigate("/profile", { replace: true });
+        setInfoToolTipVisible(true);
+        setMessageText("Добро пожаловать!");
+        navigate("/movies", { replace: true });
       })
+      .catch((err) => {
+        setInfoToolTipVisible(true);
+        setMessageText(`${err}...Попробуйте еще раз...`);
+      })
+      .finally(() => {
+        setTimeout(() => {
+          setInfoToolTipVisible(false);
+        }, 1500);
+      });
   };
 
   const handleUserUpdate = ({ name, email }) => {
@@ -160,14 +185,18 @@ function App() {
 
         <Routes>
           <Route path="/" element={<Main />} />
+          {!loggedIn && (
           <Route
             path="/signup"
             element={<Register handleRegister={handleRegister} />}
           />
+          )}
+          {!loggedIn && (
           <Route
             path="/signin"
             element={<Login handleLogin={handleLogin} />}
           />
+          )}
           <Route path="/movies"
             element={
               <ProtectedRoute
@@ -206,6 +235,10 @@ function App() {
           <Route path="*" element={<PageNotFound />} />
         </Routes>
         {shouldDisplayFooter && <Footer />}
+        <InfoToolTip
+          messageText={messageText}
+          infoToolTipVisible={infoToolTipVisible}
+        />
       </div>
     </CurrentUserContext.Provider>
   );
