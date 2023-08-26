@@ -26,7 +26,7 @@ https://www.figma.com/file/OcLhsPO06QJAH4q4ywKoAw/light-3?type=design&mode=desig
 
 Адрес Пул:
 
-https://github.com/Gabulin/movies-explorer-frontend/tree/level-3
+https://github.com/Gabulin/movies-explorer-frontend/pull/2
 
 Адрес Фронтенд:
 
