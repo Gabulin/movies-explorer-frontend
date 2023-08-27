@@ -30,7 +30,7 @@ function App() {
   const location = useLocation();
   const [infoToolTipVisible, setInfoToolTipVisible] = React.useState(false);
   const [messageText, setMessageText] = React.useState("");
-  const [token, setToken] = useState(sessionStorage.getItem('token'));
+  const [token, setToken] = useState(localStorage.getItem('token'));
   const [loggedIn, setLoggedIn] = React.useState(token || false);
   const [userInfo, setUserInfo] = React.useState({
     name: "",
@@ -58,7 +58,7 @@ function App() {
   }, [loggedIn]);
 
   React.useEffect(() => {
-    sessionStorage.setItem('token', token);
+    localStorage.setItem('token', token);
   }, [token]);
 
   React.useEffect(() => {
@@ -115,7 +115,18 @@ function App() {
     updateUserInfo(token, { name, email })
       .then(({ name, email }) => {
         setUserInfo({ name, email });
+        setInfoToolTipVisible(true);
+        setMessageText("Данные успешно изменены!");
       })
+      .catch((err) => {
+        setInfoToolTipVisible(true);
+        setMessageText(`${err}...Попробуйте еще раз...`);
+      })
+      .finally(() => {
+        setTimeout(() => {
+          setInfoToolTipVisible(false);
+        }, 1500);
+      });
   };
 
   const handleUserInfo = () => {

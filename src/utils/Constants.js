@@ -7,3 +7,8 @@ export const HEADERS = (token) => ({
     Authorization: `Bearer ${token}`,
     "Content-Type": "application/json",
 });
+
+export const MAX_SHORT_FILM_DURATION = 60;
+export const MOBILE_WIDTH = 768;
+export const TABLET_WIDTH = 1000;
+export const DESKTOP_WIDTH = 1280;

@@ -1,6 +1,7 @@
 .movies-list {
   box-sizing: border-box;
   padding: 80px 70px;
+  display: grid;
 }
 
 .movies-list__cards {
@@ -39,7 +40,7 @@
   opacity: 0.8;
 }
 
-@media screen and (max-width: 1279px) {
+@media screen and (max-width: 1280px) {
   .movies-list__cards {
     justify-content: center;
   }

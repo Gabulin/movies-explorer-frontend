@@ -4,7 +4,7 @@ import "./MoviesCard.css";
 import saveMovieBtnActive from "../../images/card-button_active.svg";
 import saveMovieBtnDisabled from "../../images/card-button_disabled.svg";
 import deleteMovieBtn from "../../images/card-button_delete.svg";
-import { MOVIE_URL } from "../../utils/Constants";
+import { MOVIE_URL, MAX_SHORT_FILM_DURATION } from "../../utils/Constants";
 
 
 function MoviesCard({ movieCard, isSaved, onDelete, onSave }) {
@@ -16,12 +16,15 @@ function MoviesCard({ movieCard, isSaved, onDelete, onSave }) {
   }
 
   function getTime(duration) {
-    if (duration < 60) {
-      return `${duration % 60}м`
+    if (duration <= MAX_SHORT_FILM_DURATION) {
+      return `${duration}м`; 
     } else {
-      return `${Math.floor(duration / 60)}ч ${duration % 60}м`
+      const hours = Math.floor(duration / 60);
+      const minutes = duration % 60;
+      return `${hours}ч ${minutes}м`; 
     }
   }
+
 
   return (
     <li className="movies-card">

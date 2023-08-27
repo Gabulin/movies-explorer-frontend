@@ -1,8 +1,8 @@
 import React, { useState, useMemo, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import "./MoviesCardList.css";
-
 import MoviesCard from "../MoviesCard/MoviesCard";
+import { MOBILE_WIDTH, TABLET_WIDTH, DESKTOP_WIDTH } from "../../utils/Constants";
 
 function MoviesCardList({ moviesList, isSaved, onDelete, onSave }) {
   const location = useLocation();
@@ -36,12 +36,15 @@ function MoviesCardList({ moviesList, isSaved, onDelete, onSave }) {
   const renderMovies = useMemo(() => {
     if (moviesList && moviesList.length) {
       if (location.pathname === "/movies") {
-        if (width < 768) {
+        if (width < MOBILE_WIDTH) {
           start = 5;
           cards = 2;
-        } else if (width < 1280) {
+        } else if (width < TABLET_WIDTH) {
           start = 8;
           cards = 2;
+        } else if (width < DESKTOP_WIDTH) {
+          start = 12;
+          cards = 3;
         }
 
         return moviesList.slice(0, start + more * cards);
