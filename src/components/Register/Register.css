@@ -114,6 +114,11 @@
   cursor: pointer;
 }
 
+.register__btn-edit_disabled {
+  background-color: #dbdbdb;
+  pointer-events: none;
+}
+
 .register__btn-edit:hover {
   opacity: 0.7;
 }

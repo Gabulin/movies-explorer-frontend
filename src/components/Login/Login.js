@@ -3,32 +3,51 @@ import { Link } from "react-router-dom";
 import logo from "../../images/logo.svg";
 import "./Login.css";
 
-function Login() {
-  const [email, setEmail] = useState("pochta@yandex.ru");
-  const [password, setPassword] = useState("");
+function Login({ handleLogin }) {
+  const [userEmail, setUserEmail] = useState("");
+  const [userPassword, setUserPassword] = useState("");
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
-    // Валидация данных
+  const validateEmail = (email) => {
+    const emailRegex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
     if (!email) {
       setEmailError("Введите email");
-      return;
+    } else if (!emailRegex.test(email)) {
+      setEmailError("Некорректный email");
     } else {
       setEmailError("");
     }
+  };
 
+  const validatePassword = (password) => {
     if (!password) {
       setPasswordError("Введите пароль");
-      return;
+    } else if (password.length < 6 || password.length > 30) {
+      setPasswordError("Пароль должен быть от 6 до 30 символов");
     } else {
       setPasswordError("");
     }
+  };
 
-    // Действия по регистрации
-    console.log("Выполняется регистрация...");
+  const isFormValid = () => {
+    return userEmail.trim() !== "" && userPassword.trim() !== "" && emailError === "" && passwordError === "";
+  };
+
+  const handleSubmitLogin = (e) => {
+    e.preventDefault();
+
+    // Валидация данных
+    validateEmail(userEmail);
+    validatePassword(userPassword);
+
+    // Если форма валидна, выполнить действия по входу
+    if (isFormValid()) {
+      handleLogin({
+        email: userEmail,
+        password: userPassword
+      });
+    }
   };
 
   return (
@@ -38,16 +57,19 @@ function Login() {
           <img src={logo} alt="Логотип" className="register__logo" />
         </Link>
         <h1 className="register__title">Рады видеть!</h1>
-        <form className="register__form" onSubmit={handleSubmit}>
+        <form className="register__form" onSubmit={handleSubmitLogin}>
           <fieldset className="register__fieldset">
             <label className="register__input-label">
               <span className="register__input-text">E-mail</span>
               <input
-                className="register__input"
+                className={`register__input ${emailError && "register__input_error"}`}
                 type="email"
                 name="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                value={userEmail}
+                onChange={(e) => {
+                  setUserEmail(e.target.value);
+                  validateEmail(e.target.value);
+                }}
                 placeholder="Email"
                 required
               />
@@ -56,13 +78,17 @@ function Login() {
             <label className="register__input-label">
               <span className="register__input-text">Пароль</span>
               <input
-                className="register__input"
+                className={`register__input ${passwordError && "register__input_error"}`}
                 type="password"
                 name="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
+                value={userPassword}
+                autoComplete="current-password"
+                onChange={(e) => {
+                  setUserPassword(e.target.value);
+                  validatePassword(e.target.value);
+                }}
                 placeholder="password"
-                minLength={2}
+                minLength={6}
                 maxLength={30}
                 required
               />
@@ -72,7 +98,11 @@ function Login() {
         </form>
       </div>
       <div className="register__edit">
-        <button className="register__btn-edit" type="submit">
+        <button 
+          className={`register__btn-edit ${isFormValid() ? "" : "register__btn-edit_disabled"}`}
+          type="submit" 
+          disabled={!isFormValid()} 
+          onClick={handleSubmitLogin}>
           Войти
         </button>
         <div className="register__question">
